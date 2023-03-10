@@ -9,7 +9,15 @@ declare global {
     ethereum: MetaMaskInpageProvider;
   }
 }
-
+export const createDefaultState = () => {
+  return {
+    ethereum: null,
+    provider: null,
+    contract: null,
+    isLoading: true,
+    hooks: setupHooks({ isLoading: true } as any),
+  };
+};
 export const createWeb3State = ({
   ethereum,
   provider,
@@ -21,7 +29,7 @@ export const createWeb3State = ({
     provider,
     contract,
     isLoading,
-    hooks: setupHooks({ ethereum, provider, contract }),
+    hooks: setupHooks({ ethereum, provider, contract, isLoading }),
   };
 };
 
@@ -33,16 +41,6 @@ export type Web3State = {
   isLoading: boolean; //true while loading web3State
   hooks: Web3Hooks;
 } & Nullable<Web3Dependencies>;
-
-export const createDefaultState = () => {
-  return {
-    ethereum: null,
-    provider: null,
-    contract: null,
-    isLoading: true,
-    hooks: setupHooks({} as any),
-  };
-};
 
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
 
