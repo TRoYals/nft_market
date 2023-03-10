@@ -1,6 +1,7 @@
 const NftMarket = artifacts.require("NftMarket");
 const truffleAssert = require("truffle-assertions");
 const { ethers } = require("ethers");
+
 contract("NftMarket", (accounts) => {
   let _contract = null;
   let _nftPrice = ethers.utils.parseEther("0.3").toString();
@@ -45,6 +46,27 @@ contract("NftMarket", (accounts) => {
       assert.equal(nftItem.price, _nftPrice, "token price is not 0.3 ethermum");
       assert.equal(nftItem.creator, accounts[0], "creator is not accounts[0]");
       assert.equal(nftItem.isListed, true, "token is not listed");
+    });
+  });
+
+  describe("Buy NFT", () => {
+    before(async () => {
+      await _contract.buyNft(1, { from: accounts[1], value: _nftPrice });
+    });
+
+    it("should be unlist the item", async () => {
+      const listedItem = await _contract.getNftItem(1);
+      assert.equal(listedItem.isListed, false, "item is still listed");
+    });
+
+    it("should decrease listed items count", async () => {
+      const listedItemCount = await _contract.listedItemsCount();
+      assert.equal(listedItemCount.toNumber(), 0, "Count has not decreaseds");
+    });
+
+    it("Change the owner", async () => {
+      const currentOwner = await _contract.ownerOf(1);
+      assert.equal(currentOwner, accounts[1], "not have changed the owner");
     });
   });
 });

@@ -52,7 +52,19 @@ return _usedTokenURIs[tokenURI] ==true;
     _usedTokenURIs[tokenURI] = true;
     return newTokenId;
   }
- 
+
+ function buyNft(
+  uint tokenId
+ ) public payable {
+  uint price = _idToNftItem[tokenId].price;
+  address owner = ERC721.ownerOf(tokenId);
+require(msg.sender!=owner,"you already hold the NFT");
+require(msg.value == price,"please submit the asking price");
+_idToNftItem[tokenId].isListed = false;
+_listedItems.decrement();
+_transfer(owner,msg.sender,tokenId);
+ }
+
   function _createNftItem(uint tokenId,uint price) private {
     require(price>0,"price must be at least 1 wei");
     _idToNftItem[tokenId] = NftItem(tokenId,price,msg.sender,true);
