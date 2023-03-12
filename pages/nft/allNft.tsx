@@ -19,7 +19,6 @@ export default function Home() {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-
           <NftList />
         </div>
       </div>

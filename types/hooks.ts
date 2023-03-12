@@ -1,10 +1,11 @@
+import { NftMarketContract } from "./nftMarketContract";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { Contract, providers } from "ethers";
 import { SWRResponse } from "swr";
 
 export type Web3Dependencies = {
   provider: providers.WebSocketProvider;
-  contract: Contract;
+  contract: NftMarketContract;
   ethereum: MetaMaskInpageProvider;
   isLoading: boolean;
 };

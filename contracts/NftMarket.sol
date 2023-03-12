@@ -3,8 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NftMarket is ERC721URIStorage {
+contract NftMarket is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _listedItems;
     Counters.Counter private _tokenIds;
@@ -37,6 +38,11 @@ contract NftMarket is ERC721URIStorage {
     uint public listingPrice = 0.0025 ether;
 
     constructor() ERC721("CreaturesNFT", "CNFT") {}
+
+    function setListingPrice(uint newPrice) external onlyOwner {
+        require(newPrice > 0, "Price must be at least 1 wei");
+        listingPrice = newPrice;
+    }
 
     function tokenURIExists(string memory tokenURI) public view returns (bool) {
         return _usedTokenURIs[tokenURI] == true;
@@ -127,6 +133,25 @@ contract NftMarket is ERC721URIStorage {
         _idToNftItem[tokenId].isListed = false;
         _listedItems.decrement();
         _transfer(owner, msg.sender, tokenId);
+    }
+
+    function placeNftOnSale(uint tokenId, uint newPrice) public payable {
+        require(
+            ERC721.ownerOf(tokenId) == msg.sender,
+            "You are not owner of this nft"
+        );
+        require(
+            _idToNftItem[tokenId].isListed == false,
+            "Item is already on sale"
+        );
+        require(
+            msg.value == listingPrice,
+            "Price must be equal to listing price"
+        );
+
+        _idToNftItem[tokenId].isListed = true;
+        _idToNftItem[tokenId].price = newPrice;
+        _listedItems.increment();
     }
 
     function _createNftItem(uint tokenId, uint price) private {

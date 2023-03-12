@@ -9,6 +9,7 @@ import Walletbar from "./Walletbar";
 const navigation = [
   { name: "Marketplace", href: "/", current: true },
   { name: "Create", href: "/nft/create", current: false },
+  { name: "All Nfts", href: "/nft/allNft", current: false },
 ];
 
 function classNames(...classes: any[]) {
@@ -37,16 +38,20 @@ export default function Navabar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="/images/page_logo.png"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="/images/page_logo.png"
-                    alt="Your Company"
-                  />
+                  <a href="https://naglfar28.com">
+                    <img
+                      className="block h-8 w-auto lg:hidden"
+                      src="/images/page_logo.png"
+                      alt="Your Company"
+                    />
+                  </a>
+                  <a href="https://naglfar28.com">
+                    <img
+                      className="hidden h-8 w-auto lg:block"
+                      src="/images/page_logo.png"
+                      alt="Your Company"
+                    />
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">

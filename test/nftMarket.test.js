@@ -125,6 +125,28 @@ contract("NftMarket", (accounts) => {
     });
   });
 
+  describe("List an Nft", () => {
+    before(async () => {
+      await _contract.placeNftOnSale(1, _nftPrice, {
+        from: accounts[1],
+        value: _listingPrice,
+      });
+    });
+
+    it("should have two listed items", async () => {
+      const listedNfts = await _contract.getAllNftsOnSale();
+
+      assert.equal(listedNfts.length, 2, "Invalid length of Nfts");
+    });
+
+    it("should set new listing price", async () => {
+      await _contract.setListingPrice(_listingPrice, { from: accounts[0] });
+      const listingPrice = await _contract.listingPrice();
+
+      assert.equal(listingPrice.toString(), _listingPrice, "Invalid Price");
+    });
+  });
+
   describe("Burn Token", () => {
     const tokenURI = "https://test-json3.com";
     before(async () => {
@@ -136,28 +158,25 @@ contract("NftMarket", (accounts) => {
 
     it("account[2] should have one owned NFT", async () => {
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[2] });
-      console.log(ownedNfts);
       assert.equal(ownedNfts[0].tokenId, 3, "Nft has a wrong id");
     });
 
     it("account[2] should own 0 NFTs", async () => {
       await _contract.burnToken(3, { from: accounts[2] });
       const ownedNfts = await _contract.getOwnedNfts({ from: accounts[2] });
-      console.log(ownedNfts);
       assert.equal(ownedNfts.length, 0, "Invalid length of tokens");
     });
   });
-
   // describe("all the information", () => {
   //   it("just show information", async () => {
-  //     // const ownedNfts1 = await _contract.getOwnedNfts({ from: accounts[0] });
-  //     // const ownedNfts2 = await _contract.getOwnedNfts({ from: accounts[1] });
-  //     // console.log("owned by account 0", ownedNfts1);
-  //     // console.log("owned by account 1", ownedNfts2);
-  //     // const currentOwner = await _contract.ownerOf(1);
-  //     // console.log("nftId 1's owner", currentOwner);
-  //     // const idToNftindex = await _idToNftIndex;
-  //     // console.log("idToNftindex", idToNftindex);
+  //     const ownedNfts1 = await _contract.getOwnedNfts({ from: accounts[0] });
+  //     const ownedNfts2 = await _contract.getOwnedNfts({ from: accounts[1] });
+  //     console.log("owned by account 0", ownedNfts1);
+  //     console.log("owned by account 1", ownedNfts2);
+  //     const currentOwner = await _contract.ownerOf(1);
+  //     console.log("nftId 1's owner", currentOwner);
+  //     const idToNftindex = await _idToNftIndex;
+  //     console.log("idToNftindex", idToNftindex);
   //   });
   // });
 });

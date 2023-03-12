@@ -1,3 +1,4 @@
+import { NftMarketContract } from "./../../../types/nftMarketContract";
 import { setupHooks, Web3Hooks } from "@/components/hooks/web3/setupHooks";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { Contract, providers } from "ethers";
