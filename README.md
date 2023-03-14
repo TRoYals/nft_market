@@ -2,7 +2,7 @@
 
 ## before start
 
-need to have the MetaMask wallet.
+need to have the MetaMask wallet.\\
 Change your network to Sepolia Test Network.
 
 ## start
@@ -13,6 +13,7 @@ npm run dev
 
 ## data structure
 
+```
 ├── .env.development
 ├── .env.production
 ├── .eslintrc.json
@@ -86,3 +87,4 @@ npm run dev
 ├── hooks.ts
 ├── nft.ts
 └── nftMarketContract.ts
+```
