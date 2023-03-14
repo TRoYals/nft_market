@@ -30,10 +30,6 @@ export default withSession(
         filename: fileName + "-" + uuidv4(),
       });
 
-      console.log(fileName);
-      console.log(contentType);
-      console.log(bytes);
-
       const fileRes = await axios.post(
         "https://api.pinata.cloud/pinning/pinFileToIPFS",
         formData,
@@ -43,6 +39,7 @@ export default withSession(
             "Content-Type": `multipart/form-data; boundary=${formData.getBoundary()}`,
             pinata_api_key: pinataApiKey,
             pinata_secret_api_key: pinataSecretApiKey,
+            Accept: "text/plain",
           },
         }
       );

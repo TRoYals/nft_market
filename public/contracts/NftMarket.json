@@ -36710,10 +36710,16 @@
       "links": {},
       "address": "0xAF18c96502616B73D1ada690A928E03b85965Fa3",
       "transactionHash": "0x115ae5864e0788656f735c6c5aae2e047c63c31ea78b73ceaabc4457823debfd"
+    },
+    "11155111": {
+      "events": {},
+      "links": {},
+      "address": "0xBB22C7C1667f54022be0fe029721edfE4Cde68cE",
+      "transactionHash": "0x7f2885af9619c4a6f35312c9f8cf14ad4c6322a54dc14f1e22f34525ab8abe8b"
     }
   },
   "schemaVersion": "3.4.12",
-  "updatedAt": "2023-03-11T09:41:43.795Z",
+  "updatedAt": "2023-03-14T11:20:14.114Z",
   "networkType": "ethereum",
   "devdoc": {
     "events": {

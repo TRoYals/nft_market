@@ -7,6 +7,7 @@ import * as util from "ethereumjs-util";
 
 const NETWORKS = {
   "5777": "Ganache",
+  "11155111": "Sepolia",
 };
 
 type NETWORK = typeof NETWORKS;
@@ -28,7 +29,10 @@ export function withSession(handler: any) {
     },
   });
 }
-
+const url =
+  process.env.NODE_ENV === "production"
+    ? process.env.INFURA_URL
+    : "HTTP://127.0.0.1:7545";
 export const addressCheckMiddleware = async (
   req: NextApiRequest & { session: Session },
   res: NextApiResponse

@@ -26,6 +26,6 @@
       "@hooks/*": ["components/hooks/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/nft/test4.js"],
   "exclude": ["node_modules"]
 }

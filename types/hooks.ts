@@ -4,7 +4,7 @@ import { Contract, providers } from "ethers";
 import { SWRResponse } from "swr";
 
 export type Web3Dependencies = {
-  provider: providers.WebSocketProvider;
+  provider: providers.Web3Provider;
   contract: NftMarketContract;
   ethereum: MetaMaskInpageProvider;
   isLoading: boolean;

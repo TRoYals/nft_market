@@ -1,6 +1,7 @@
 import {
   createContext,
   FunctionComponent,
+  ReactNode,
   useContext,
   useEffect,
   useState,
@@ -16,8 +17,10 @@ import { MetaMaskInpageProvider } from "@metamask/providers";
 import { NftMarketContract } from "@/types/nftMarketContract";
 
 const Web3Context = createContext<Web3State>(createDefaultState());
-
-const Web3Provider: FunctionComponent = ({ children }) => {
+interface BaseLayoutProps {
+  children?: ReactNode;
+}
+const Web3Provider: FunctionComponent<BaseLayoutProps> = ({ children }) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const Web3Provider: FunctionComponent = ({ children }) => {
         const signer = provider.getSigner();
         const signedContract = contract.connect(signer);
 
-        setGloablListeners(window.ethereum);
+        setTimeout(() => setGlobalListeners(window.ethereum), 500);
         setWeb3Api(
           createWeb3State({
             ethereum: window.ethereum,
@@ -46,7 +49,6 @@ const Web3Provider: FunctionComponent = ({ children }) => {
             isLoading: false,
           })
         );
-        console.log("web3api", web3Api);
       }
     }
     initWeb3();
@@ -60,10 +62,11 @@ const Web3Provider: FunctionComponent = ({ children }) => {
       pageReload();
     }
   };
-  const setGloablListeners = (ethereum: MetaMaskInpageProvider) => {
+  const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
     ethereum.on("chainChanged", pageReload);
     ethereum.on("accountsChanged", handleAccount(ethereum));
   };
+
   const removeGloablListeners = (ethereum: MetaMaskInpageProvider) => {
     ethereum?.removeListener("chainChanged", pageReload);
     ethereum?.removeListener("accountsChanged", handleAccount(ethereum));

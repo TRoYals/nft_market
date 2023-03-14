@@ -38,6 +38,7 @@ export default withSession(
             headers: {
               pinata_api_key: pinataApiKey,
               pinata_secret_api_key: pinataSecretApiKey,
+              Accept: "text/plain",
             },
           }
         );
