@@ -42,7 +42,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full"
-              src="http://fuqixuan.com/wp-content/uploads/2020/04/logo.png"
+              src="/images/page_logo.png"
               alt=""
             />
           </Menu.Button>
